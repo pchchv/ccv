@@ -18,6 +18,8 @@ fn main() {
             break;
         }
 
-        println!("{cc_number}");
+        if cc_number.parse::<u128>().is_ok() {
+            println!("{cc_number}");
+        }
     }
 }
