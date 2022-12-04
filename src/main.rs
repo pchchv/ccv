@@ -7,28 +7,25 @@ fn validator(cc_number: Vec<u8>) -> bool {
     while len > 0 {
         len -= 1;
 
-        if len % 2 == 0 {
-            // Double every second digit, starting from the right
-            // If the result is a two-digit number,
-            // add both digits to get one single-digit number
-            // Finally, sum all the answers to obtain 'doubleEvenSum'
+        // Double each even number, starting from the right
+        // If the result is a two-digit number, add both digits to get one single-digit number
+        // Add all resulting elements to 'doubleEvenSum'
 
-            let mut digit = (cc_number[len] * 2) as u64;
+        // Add each odd element, starting from the right, without changing, to 'double_even_sum'
+
+        let mut digit = cc_number[len] as u64;
+
+        if len % 2 == 0 {
+            digit *= 2;
             
             if digit > 9 {
                 digit = (digit / 10) + (digit % 10);
             }
-
-            double_even_sum += digit;
-        } else {
-            // Add every odd digit from the right to the 'double_even_sum'
-
-            double_even_sum += cc_number[len] as u64;
         }
+        double_even_sum += digit;
     }
 
-    // Check if 'double_even_sum' is a multiple of 10
-    // If yes, it is a valid credit card number
+    // If 'double_even_sum' is a multiple of 10, this is a valid credit card number
 
     if double_even_sum % 10 == 0 {
         return true;
