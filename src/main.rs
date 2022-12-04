@@ -1,7 +1,7 @@
 use std::io;
 
 fn validator(cc_number: Vec<u8>) -> bool {
-    let mut len = cc_number.len() as i8;
+    let mut len = cc_number.len();
     let mut double_even_sum: u64 = 0;
 
     while len > 0 {
@@ -13,17 +13,17 @@ fn validator(cc_number: Vec<u8>) -> bool {
             // add both digits to get one single-digit number
             // Finally, sum all the answers to obtain 'doubleEvenSum'
 
-            let mut digit = cc_number[len as usize] * 2;
+            let mut digit = (cc_number[len] * 2) as u64;
             
             if digit > 9 {
                 digit = (digit / 10) + (digit % 10);
             }
-            
-            double_even_sum += digit as u64;
+
+            double_even_sum += digit;
         } else {
             // Add every odd digit from the right to the 'double_even_sum'
 
-            double_even_sum += cc_number[len as usize] as u64;
+            double_even_sum += cc_number[len] as u64;
         }
     }
 
