@@ -1,35 +1,30 @@
 use std::io;
 
 fn validator(cc_number: Vec<u8>) -> bool {
-    let len = cc_number.len() as i8;
+    let mut len = cc_number.len() as i8;
     let mut double_even_sum: u64 = 0;
-    let mut i: i8 = len - 2;
 
-    // Double every second digit, starting from the right
-    // If the result is a two-digit number,
-    // add both digits to get one single-digit number
-    // Finally, sum all the answers to obtain 'doubleEvenSum'
+    while len > 0 {
+        len -= 1;
 
-    while i >= 0 {
-        let mut digit = cc_number[i as usize] * 2;
+        if len % 2 == 0 {
+            // Double every second digit, starting from the right
+            // If the result is a two-digit number,
+            // add both digits to get one single-digit number
+            // Finally, sum all the answers to obtain 'doubleEvenSum'
 
-        if digit > 9 {
-            digit = (digit / 10) + (digit % 10);
+            let mut digit = cc_number[len as usize] * 2;
+            
+            if digit > 9 {
+                digit = (digit / 10) + (digit % 10);
+            }
+            
+            double_even_sum += digit as u64;
+        } else {
+            // Add every odd digit from the right to the 'double_even_sum'
+
+            double_even_sum += cc_number[len as usize] as u64;
         }
-
-        double_even_sum += digit as u64;
-
-        i -= 2;
-    }
-
-    // Add every odd digit from the right to the 'double_even_sum'
-
-    let mut i = len - 1;
-
-    while i >= 0 {
-        double_even_sum += cc_number[i as usize] as u64;
-
-        i -= 2;
     }
 
     // Check if 'double_even_sum' is a multiple of 10
