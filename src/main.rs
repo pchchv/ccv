@@ -2,16 +2,16 @@ use std::io;
 
 fn validator(cc_number: Vec<u8>) -> bool {
     let mut len = cc_number.len();
-    let mut double_even_sum: u64 = 0;
+    let mut sum: u64 = 0;
 
-    while len > 0 {
-        len -= 1;
-
-        // Double each even number, starting from the right
+    while len > 0 {        
+        // Double each even element, starting from the right
         // If the result is a two-digit number, add both digits to get one single-digit number
         // Add all resulting elements to 'doubleEvenSum'
-
-        // Add each odd element, starting from the right, without changing, to 'double_even_sum'
+        
+        // Add each odd element, starting from the right, without changing, to 'sum'
+        
+        len -= 1;
 
         let mut digit = cc_number[len] as u64;
 
@@ -22,12 +22,13 @@ fn validator(cc_number: Vec<u8>) -> bool {
                 digit = (digit / 10) + (digit % 10);
             }
         }
-        double_even_sum += digit;
+
+        sum += digit;
     }
 
-    // If 'double_even_sum' is a multiple of 10, this is a valid credit card number
+    // If 'sum' is a multiple of 10, this is a valid credit card number
 
-    if double_even_sum % 10 == 0 {
+    if sum % 10 == 0 {
         return true;
     } else {
         return false;
